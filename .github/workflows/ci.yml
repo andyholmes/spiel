@@ -74,7 +74,7 @@ jobs:
 
       - name: Prepare
         run: |
-          dnf install -y cairo-gobject-devel dbus-glib-devel python3.11 python3.11-devel python3-dasbus python3-gobject-devel gi-docgen gstreamer1-devel gstreamer1-plugins-base-devel gstreamer1-plugins-good
+          dnf install -y libasan-static libubsan-static libtsan-static cairo-gobject-devel dbus-glib-devel python3.11 python3.11-devel python3-dasbus python3-gobject-devel gi-docgen gstreamer1-devel gstreamer1-plugins-base-devel gstreamer1-plugins-good
           python3.11 -m ensurepip --upgrade
           python3.11 -m pip install --upgrade pip
           python3.11 -m pip install dasbus dbus-python PyGObject tap.py
@@ -88,7 +88,7 @@ jobs:
           setup-args: ${{ matrix.setup-args }}
           test-args: ${{ matrix.test-args }}
           test-coverage: ${{ matrix.compiler == 'gcc' && matrix.suite == 'test' }}
-          lcov-include: "'${{ github.workspace }}/*/libspeechprovider/* ${{ github.workspace }}/*/libspiel/* ${{ github.workspace }}/*/utils/*'"
+          lcov-include: "'*/libspeechprovider/* */libspiel/* */utils/*'"
 
       - name: Test Report
         if: ${{ failure() }}

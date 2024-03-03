@@ -1,6 +1,6 @@
 python_module = import('python')
 python = python_module.find_installation(
-  'python3', required : true)
+  'python3.11', required : true)
 gen_enums = files(join_paths(meson.project_source_root(), 'interface', 'generate_enums.py'))
 speech_provider_dbus_enums_h = custom_target(
     input: join_paths(meson.project_source_root(), 'interface', 'org.freedesktop.Speech.Provider.xml'),
@@ -95,5 +95,6 @@ if get_option('tests') or get_option('docs') or get_option('introspection')
                includes: [ 'GObject-2.0' ],
                 install: true,
                 export_packages: 'speech-provider',
+                env: ['ASAN_OPTIONS=start_deactivated=true,detect_leaks=0'],
   )
 endif
