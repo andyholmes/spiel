@@ -1080,6 +1080,12 @@ _process_going_to_speak_message (GstMessage *msg, SpielSpeaker *self)
       g_warning ("No 'range_end' in message structure");
     }
 
+  if (entry == NULL)
+    {
+      g_debug ("Queue is empty");
+      return;
+    }
+
   switch (event_type)
     {
     case SPEECH_PROVIDER_EVENT_TYPE_WORD:
