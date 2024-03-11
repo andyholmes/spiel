@@ -1044,8 +1044,12 @@ _handle_gst_eos (GstBus *bus, GstMessage *msg, SpielSpeaker *self)
 {
   SpielSpeakerPrivate *priv = spiel_speaker_get_instance_private (self);
   _QueueEntry *entry = priv->queue ? priv->queue->data : NULL;
-  GstElement *fdsrc = entry->src;
-  gst_element_set_state (fdsrc, GST_STATE_NULL);
+
+  if (entry != NULL)
+    {
+      GstElement *fdsrc = entry->src;
+      gst_element_set_state (fdsrc, GST_STATE_NULL);
+    }
 
   return TRUE;
 }
